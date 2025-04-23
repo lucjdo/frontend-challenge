@@ -31,5 +31,5 @@ export function getTransactions() {
       resolve({ data: MOCK_TRANSACTIONS })
     }, 300)
   })
-  return MOCK_TRANSACTIONS
+  return transactionsPromise
 }

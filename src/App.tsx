@@ -10,8 +10,10 @@ function App() {
   const [filterToDate, setFilterToDate] = useState(null)
 
   useEffect(() => {
-    const transactions = getTransactions()
-    setTransactions(transactions)
+    const apiCall = async () => {
+      getTransactions().then(({ data }) => setTransactions(data))
+    }
+    apiCall()
   }, [])
 
   const filteredTransactions = transactions?.filter((t) => {
@@ -54,14 +56,16 @@ function App() {
             <th>Description</th>
           </tr>
         </thead>
-        {filteredTransactions?.map(({ id, date, amount, description }) => (
-          <tr key={id}>
-            <td>{id}</td>
-            <td>{new Date(date).toLocaleDateString()}</td>
-            <td>{description}</td>
-            <td>{amount}</td>
-          </tr>
-        ))}
+        <tbody>
+          {filteredTransactions?.map(({ id, date, amount, description }) => (
+            <tr key={id}>
+              <td>{id}</td>
+              <td>{new Date(date).toLocaleDateString()}</td>
+              <td>{description}</td>
+              <td>{amount}</td>
+            </tr>
+          ))}
+        </tbody>
       </table>
     </main>
   )
